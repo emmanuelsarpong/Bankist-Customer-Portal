@@ -18,14 +18,14 @@ const account1 = {
   pin: 1111,
 
   movementsDates: [
-    "2022-11-18T21:31:17.178Z",
-    "2022-12-23T07:42:02.383Z",
-    "2022-01-28T09:15:04.904Z",
-    "2023-04-01T10:17:24.185Z",
-    "2023-05-08T14:11:59.604Z",
-    "2023-01-11T17:01:17.194Z",
-    "2023-01-17T23:36:17.929Z",
-    "2023-01-18T10:51:36.790Z",
+    '2022-11-18T21:31:17.178Z',
+    '2022-12-23T07:42:02.383Z',
+    '2022-01-28T09:15:04.904Z',
+    '2023-04-01T10:17:24.185Z',
+    '2023-05-08T14:11:59.604Z',
+    '2023-01-11T17:01:17.194Z',
+    '2023-01-17T23:36:17.929Z',
+    '2023-01-18T10:51:36.790Z',
   ],
   currency: 'EUR',
   locale: 'pt-PT', // de-DE
@@ -38,14 +38,14 @@ const account2 = {
   pin: 2222,
 
   movementsDates: [
-    "2019-11-01T13:15:33.035Z",
-    "2019-11-30T09:48:16.867Z",
-    "2019-12-25T06:04:23.907Z",
-    "2020-01-25T14:18:46.235Z",
-    "2020-02-05T16:33:06.386Z",
-    "2020-04-10T14:43:26.374Z",
-    "2020-06-25T18:49:59.371Z",
-    "2020-07-26T12:01:20.894Z",
+    '2019-11-01T13:15:33.035Z',
+    '2019-11-30T09:48:16.867Z',
+    '2019-12-25T06:04:23.907Z',
+    '2020-01-25T14:18:46.235Z',
+    '2020-02-05T16:33:06.386Z',
+    '2020-04-10T14:43:26.374Z',
+    '2020-06-25T18:49:59.371Z',
+    '2020-07-26T12:01:20.894Z',
   ],
   currency: 'USD',
   locale: 'en-US',
@@ -90,8 +90,8 @@ const formatMovementDate = function (date, locale) {
   const daysPassed = calcDaysPassed(new Date(), date);
   console.log(daysPassed);
 
-  if (daysPassed === 0) return "Today";
-  if (daysPassed === 1) return "Yesterday";
+  if (daysPassed === 0) return 'Today';
+  if (daysPassed === 1) return 'Yesterday';
   if (daysPassed <= 7) return `${daysPassed} days ago`;
 
   return new Intl.DateTimeFormat(locale).format(date);
@@ -99,20 +99,20 @@ const formatMovementDate = function (date, locale) {
 
 const formatCur = function (value, locale, currency) {
   return new Intl.NumberFormat(locale, {
-    style: "currency",
+    style: 'currency',
     currency: currency,
   }).format(value);
 };
 
 const displayMovements = function (acc, sort = false) {
-  containerMovements.innerHTML = "";
+  containerMovements.innerHTML = '';
 
   const movs = sort
     ? acc.movements.slice().sort((a, b) => a - b)
     : acc.movements;
 
   movs.forEach(function (mov, i) {
-    const type = mov > 0 ? "deposit" : "withdrawal";
+    const type = mov > 0 ? 'deposit' : 'withdrawal';
 
     const date = new Date(acc.movementsDates[i]);
     const displayDate = formatMovementDate(date, acc.locale);
@@ -129,7 +129,7 @@ const displayMovements = function (acc, sort = false) {
       </div>
     `;
 
-    containerMovements.insertAdjacentHTML("afterbegin", html);
+    containerMovements.insertAdjacentHTML('afterbegin', html);
   });
 };
 
@@ -140,18 +140,18 @@ const calcDisplayBalance = function (acc) {
 
 const calcDisplaySummary = function (acc) {
   const incomes = acc.movements
-    .filter(mov => mov > 0)
+    .filter((mov) => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
   labelSumIn.textContent = formatCur(incomes, acc.locale, acc.currency);
 
   const out = acc.movements
-    .filter(mov => mov < 0)
+    .filter((mov) => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
   labelSumOut.textContent = formatCur(Math.abs(out), acc.locale, acc.currency);
 
   const interest = acc.movements
-    .filter(mov => mov > 0)
-    .map(deposit => (deposit * acc.interestRate) / 100)
+    .filter((mov) => mov > 0)
+    .map((deposit) => (deposit * acc.interestRate) / 100)
     .filter((int, i, arr) => {
       // console.log(arr);
       return int >= 1;
@@ -165,7 +165,7 @@ const createUsernames = function (accs) {
     acc.username = acc.owner
       .toLowerCase()
       .split(' ')
-      .map(name => name[0])
+      .map((name) => name[0])
       .join('');
   });
 };
@@ -191,21 +191,18 @@ const startLogoutTimer = () => {
     // const timer = `${min}:${sec}`
 
     // In each call, print the remaining time to UI
-    labelTimer.textContent =  `${min}:${sec}`;
-    
+    labelTimer.textContent = `${min}:${sec}`;
 
-    
     // When 0 seconds, stop timer and log out user
     if (time === 0) {
       clearInterval(tick);
-      labelWelcome.textContent= 'Log in to get started';
+      labelWelcome.textContent = 'Log in to get started';
       containerApp.style.opacity = 0;
-    }; 
+    }
 
     // Decrease 1s
     time--;
   };
-  
 
   // Set time for 5 minutes
   let time = 300;
@@ -233,20 +230,23 @@ const options = {
   day: 'numeric',
   month: 'long',
   year: 'numeric',
-  weekday: 'long'
+  weekday: 'long',
 };
 const locale = navigator.language;
-console.log(locale)
+console.log(locale);
 
-labelDate.textContent = new Intl.DateTimeFormat('pt-PT', locale, options).format(now);
-
+labelDate.textContent = new Intl.DateTimeFormat(
+  'pt-PT',
+  locale,
+  options
+).format(now);
 
 btnLogin.addEventListener('click', function (e) {
   // Prevent form from submitting
   e.preventDefault();
 
   currentAccount = accounts.find(
-    acc => acc.username === inputLoginUsername.value
+    (acc) => acc.username === inputLoginUsername.value
   );
   console.log(currentAccount);
 
@@ -256,6 +256,9 @@ btnLogin.addEventListener('click', function (e) {
       currentAccount.owner.split(' ')[0]
     }`;
     containerApp.style.opacity = 100;
+
+    // Hide the modal on successful login
+    modal.style.display = 'none';
 
     // Create current date and time
     const options = {
@@ -267,17 +270,19 @@ btnLogin.addEventListener('click', function (e) {
       // weekday: 'long'
     };
     const locale = navigator.language;
-    console.log(locale)
-    
-    labelDate.textContent = new Intl.DateTimeFormat(currentAccount.locale, options).format(now);
+    console.log(locale);
+
+    labelDate.textContent = new Intl.DateTimeFormat(
+      currentAccount.locale,
+      options
+    ).format(now);
 
     // Clear input fields
     inputLoginUsername.value = inputLoginPin.value = '';
     inputLoginPin.blur();
-    
-    if(timer) clearInterval(timer);
-    timer = startLogoutTimer();
 
+    if (timer) clearInterval(timer);
+    timer = startLogoutTimer();
 
     // Update UI
     updateUI(currentAccount);
@@ -288,7 +293,7 @@ btnTransfer.addEventListener('click', function (e) {
   e.preventDefault();
   const amount = Number(inputTransferAmount.value);
   const receiverAcc = accounts.find(
-    acc => acc.username === inputTransferTo.value
+    (acc) => acc.username === inputTransferTo.value
   );
   inputTransferAmount.value = inputTransferTo.value = '';
 
@@ -321,24 +326,28 @@ btnLoan.addEventListener('click', function (e) {
   const amount = Math.floor(inputLoanAmount.value);
   let receiverAcc;
 
-  if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
-      setTimeout(function () {    // Add movement
-        currentAccount.movements.push(amount);
+  if (
+    amount > 0 &&
+    currentAccount.movements.some((mov) => mov >= amount * 0.1)
+  ) {
+    setTimeout(function () {
+      // Add movement
+      currentAccount.movements.push(amount);
 
-        // Add loan date
-        currentAccount.movementsDates.push(new Date().toISOString());
+      // Add loan date
+      currentAccount.movementsDates.push(new Date().toISOString());
 
-        // Update UI
-        updateUI(currentAccount);
+      // Update UI
+      updateUI(currentAccount);
 
-        alert(`Your loan has been approved!`)
-      }, 3000)
+      alert(`Your loan has been approved!`);
+    }, 3000);
   }
   inputLoanAmount.value = '';
 
-      // Reset timer
-      clearInterval(timer);
-      timer = startLogoutTimer();
+  // Reset timer
+  clearInterval(timer);
+  timer = startLogoutTimer();
 });
 
 btnClose.addEventListener('click', function (e) {
@@ -349,7 +358,7 @@ btnClose.addEventListener('click', function (e) {
     Number(inputClosePin.value) === currentAccount.pin
   ) {
     const index = accounts.findIndex(
-      acc => acc.username === currentAccount.username
+      (acc) => acc.username === currentAccount.username
     );
     console.log(index);
     // .indexOf(23)
@@ -363,9 +372,9 @@ btnClose.addEventListener('click', function (e) {
 
   inputCloseUsername.value = inputClosePin.value = '';
 
-    // Reset timer
-    clearInterval(timer);
-    timer = startLogoutTimer();
+  // Reset timer
+  clearInterval(timer);
+  timer = startLogoutTimer();
 });
 
 let sorted = false;
@@ -388,7 +397,7 @@ console.log(0.1 + 0.2 === 0.3);
 
 // Convertion
 console.log(Number('23'));
-console.log(+'23')
+console.log(+'23');
 
 // Parsing
 console.log(Number.parseInt('30px', 10));
@@ -429,7 +438,8 @@ console.log(Math.PI * Number.parseFloat('10px') ** 2);
 
 console.log(Math.trunc(Math.random() * 6) + 1);
 
-const randomInt = (min, max) => Math.floor(Math.random() * (max - min) + 1) + min;
+const randomInt = (min, max) =>
+  Math.floor(Math.random() * (max - min) + 1) + min;
 console.log(randomInt(10, 20));
 
 // Rounding
@@ -451,10 +461,10 @@ console.log(5 / 2); // 5 = 2 * 2 + 1 (remainder)
 console.log(8 % 3);
 console.log(8 / 3); // 8 = 2 * 3 + 2 (remainder)
 
-console.log(6 % 2) // Even numbers will return 0
-console.log(6 / 2) // 6 = 2 * 3 + 0 (remainder)
+console.log(6 % 2); // Even numbers will return 0
+console.log(6 / 2); // 6 = 2 * 3 + 0 (remainder)
 
-const isEven = n => n % 2 === 0;
+const isEven = (n) => n % 2 === 0;
 console.log(isEven(8));
 console.log(isEven(23));
 console.log(isEven(111));
@@ -482,7 +492,7 @@ console.log(Number('230_00')); // You cannot use number seperators on strings
 console.log(parseInt('230_00'));
 
 // Bigint
-console.log(2 ** 53 -1); // biggest number in javascript
+console.log(2 ** 53 - 1); // biggest number in javascript
 console.log(Number.MAX_SAFE_INTEGER);
 console.log(2 ** 53 + 1);
 console.log(2 ** 53 + 2);
@@ -500,7 +510,7 @@ console.log(1231513513513513513513513n + 1000000n);
 
 const huge = 2085464685464654n;
 const num = 23;
-console.log(huge * BigInt(num))
+console.log(huge * BigInt(num));
 
 // Exceptions
 console.log(20n > 15);
@@ -516,44 +526,43 @@ console.log(10n / 3n);
 console.log(10 / 3);
 
 // Creating Dates
-  // const now = new Date();
-  // console.log(now);
+// const now = new Date();
+// console.log(now);
 
-  // console.log(new Date('Aug 02 2020 18:05:41'));
-  // console.log(new Date('January 17th, 2023'));
-  // console.log(new Date(account1.movementsDates[0]));
+// console.log(new Date('Aug 02 2020 18:05:41'));
+// console.log(new Date('January 17th, 2023'));
+// console.log(new Date(account1.movementsDates[0]));
 
-  // console.log(new Date(2037, 10, 19, 15, 23, 5));
+// console.log(new Date(2037, 10, 19, 15, 23, 5));
 
-  // console.log(new Date(0));
-  // console.log(new Date(3 * 24 * 60 * 60 * 1000));
-  // console.log(3 * 24 * 60 * 60 * 1000);
+// console.log(new Date(0));
+// console.log(new Date(3 * 24 * 60 * 60 * 1000));
+// console.log(3 * 24 * 60 * 60 * 1000);
 
 // Working with dates
-  // const future = new Date(2037, 10, 19, 15, 23, 5);
-  // console.log(future);
-  // console.log(future.getFullYear());
-  // console.log(future.getMonth());
-  // console.log(future.getDate())
-  // console.log(future.getDay());
-  // console.log(future.getHours());
-  // console.log(future.getMinutes());
-  // console.log(future.getSeconds());
-  // console.log(future.toISOString());
-  // console.log(future.getTime());
-  // console.log(new Date(2142274985000));
-  // console.log(Date.now());
+// const future = new Date(2037, 10, 19, 15, 23, 5);
+// console.log(future);
+// console.log(future.getFullYear());
+// console.log(future.getMonth());
+// console.log(future.getDate())
+// console.log(future.getDay());
+// console.log(future.getHours());
+// console.log(future.getMinutes());
+// console.log(future.getSeconds());
+// console.log(future.toISOString());
+// console.log(future.getTime());
+// console.log(new Date(2142274985000));
+// console.log(Date.now());
 
-  // future.setFullYear(2040);
-  // console.log(future);
+// future.setFullYear(2040);
+// console.log(future);
 
-  // console.log(+future);
+// console.log(+future);
 
-  // const calcDaysPassed = (date1, date2) => Math.abs(date2 - date1) / (1000 * 60 * 60 * 24);
+// const calcDaysPassed = (date1, date2) => Math.abs(date2 - date1) / (1000 * 60 * 60 * 24);
 
-  // const days1 = calcDaysPassed(new Date(2037, 3, 14), new Date(2037, 3, 14, 10, 8));
-  // console.log(days1);
-
+// const days1 = calcDaysPassed(new Date(2037, 3, 14), new Date(2037, 3, 14, 10, 8));
+// console.log(days1);
 
 // const numNew = 312651654.23;
 
@@ -573,23 +582,58 @@ console.log(10 / 3);
 //   new Intl.NumberFormat(navigator.language).format(numNew)
 // );
 
-
 // Timers
-  // setTimeout
-  const ingredients = ['olives', 'spinach']
-  const pizzaTimer = setTimeout((ing1, ing2) => console.log(`Here is your pizza 🍕 with ${ing1} 🫒 and ${ing2} 🌱`), 3000, ...ingredients);
+// setTimeout
+const ingredients = ['olives', 'spinach'];
+const pizzaTimer = setTimeout(
+  (ing1, ing2) =>
+    console.log(`Here is your pizza 🍕 with ${ing1} 🫒 and ${ing2} 🌱`),
+  3000,
+  ...ingredients
+);
 
-  console.log('waiting...');
+console.log('waiting...');
 
-  if (ingredients.includes('spinach')) clearTimeout(pizzaTimer);
+if (ingredients.includes('spinach')) clearTimeout(pizzaTimer);
 
-  // setInterval
-  // setInterval(function () {
-  //   const date = new Date();
-  //   const hour = date.getHours();
-  //   const min = date.getMinutes();
-  //   const sec = date.getSeconds();
-  //   const now = `${hour}:${min}:${sec}`;
-  //   console.log(now)
-  // }, 1000);
+// setInterval
+// setInterval(function () {
+//   const date = new Date();
+//   const hour = date.getHours();
+//   const min = date.getMinutes();
+//   const sec = date.getSeconds();
+//   const now = `${hour}:${min}:${sec}`;
+//   console.log(now)
+// }, 1000);
 
+// Modal
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById('myBtn'); // Ensure you have a button with id="myBtn" in your HTML
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName('close')[0];
+
+// When the page loads, open the modal
+window.onload = function () {
+  modal.style.display = 'block';
+};
+
+// When the user clicks on the button, open the modal
+// btn.onclick = function () {
+//   modal.style.display = 'block';
+// };
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function () {
+  modal.style.display = 'none';
+};
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function (event) {
+  if (event.target == modal) {
+    modal.style.display = 'none';
+  }
+};

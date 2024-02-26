@@ -296,3 +296,67 @@
     font-weight: 600;
   }
   
+  /* Modal start */
+
+/* Modal Content */
+.modal-content {
+  background-color: #333;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 60%; /* Could be more or less, depending on screen size */
+  color: white;
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  text-align: center; /* Center text */
+}
+
+/* Increase font size for modal text */
+.modal-content p {
+  font-size: 18px; /* Larger font size */
+  margin: 15px 0; /* Add some space between paragraphs */
+}
+
+
+/* The Close Button */
+.close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #aaa;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Button styling */
+#myBtn {
+  background-color: #333; /* Black background */
+  color: white; /* White text */
+  padding: 12px 24px; /* Padding for size */
+  border: none; /* No border */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: 16px; /* Font size */
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+#myBtn:hover {
+  background-color: #555; /* Darker background on hover */
+}
+
+/* Center the button */
+.button-container {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  margin-top: 100px;
+}
+
+/* Additional styling for the modal content to make it more modern */
+.modal-content {
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
