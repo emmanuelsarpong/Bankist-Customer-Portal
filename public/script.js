@@ -637,3 +637,42 @@ window.onclick = function (event) {
     modal.style.display = 'none';
   }
 };
+
+
+// Show-hide functionality 
+const mainEl = document.getElementsByClassName('.section-top');
+const articleEl = document.getElementsByClassName('.section-bottom');
+const bodyEl = document.body;
+
+
+function showHide() {
+  const paragraph = document.getElementById('message');
+  const innerWidth = window.innerWidth;
+
+
+  if (innerWidth <= 950) {
+    paragraph.style.display = 'block';
+    paragraph.style.color = 'black';
+    paragraph.style.backgroundColor = 'white';
+    bodyEl.style.backgroundColor = 'white';
+    paragraph.style.fontFamily = 'proxima nova light, "Helvetica Neue", Helvetica, Arial, Sans-serif';
+    paragraph.style.position = 'absolute';
+    paragraph.style.top = '50%';
+    paragraph.style.left = '50%';
+    paragraph.style.transform = 'translate(-50%, -50%)';
+    paragraph.style.fontSize = '20px';
+    paragraph.style.textAlign = 'center';
+    // mainEl.style.display = 'none';
+    bodyEl.classList.add('hide-everything');
+  } else {
+    paragraph.style.display = 'none';
+    // mainEl.style.display = 'block';
+    bodyEl.classList.remove('hide-everything');
+  }
+}
+
+// Call the showHide function when the window is resized
+window.addEventListener('resize', showHide);
+
+// Initial check on page load
+showHide();
