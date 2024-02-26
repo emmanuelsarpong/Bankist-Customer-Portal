@@ -4,10 +4,8 @@ const app = express();
 // Your existing project might already have defined a port
 const port = process.env.PORT || 3000; // Use the environment port or a default one
 
-// Example of a basic route
-app.get('/', (req, res) => {
-  res.send('Hello World with Express!');
-});
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Start the Express server
 app.listen(port, () => {
