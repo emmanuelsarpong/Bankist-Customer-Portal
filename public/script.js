@@ -380,8 +380,10 @@ btnClose.addEventListener('click', function (e) {
 let sorted = false;
 btnSort.addEventListener('click', function (e) {
   e.preventDefault();
-  displayMovements(currentAccount.movements, !sorted);
-  sorted = !sorted;
+  console.log('Before sort:', sorted);
+  displayMovements(currentAccount, !sorted);
+  sorted = !sorted; // toggle sorting state
+  console.log('After sort:', sorted);
 });
 
 /////////////////////////////////////////////////
@@ -638,24 +640,22 @@ window.onclick = function (event) {
   }
 };
 
-
-// Show-hide functionality 
+// Show-hide functionality
 const mainEl = document.getElementsByClassName('.section-top');
 const articleEl = document.getElementsByClassName('.section-bottom');
 const bodyEl = document.body;
 
-
 function showHide() {
   const paragraph = document.getElementById('message');
   const innerWidth = window.innerWidth;
-
 
   if (innerWidth <= 950) {
     paragraph.style.display = 'block';
     paragraph.style.color = 'black';
     paragraph.style.backgroundColor = 'white';
     bodyEl.style.backgroundColor = 'white';
-    paragraph.style.fontFamily = 'proxima nova light, "Helvetica Neue", Helvetica, Arial, Sans-serif';
+    paragraph.style.fontFamily =
+      'proxima nova light, "Helvetica Neue", Helvetica, Arial, Sans-serif';
     paragraph.style.position = 'absolute';
     paragraph.style.top = '50%';
     paragraph.style.left = '50%';
